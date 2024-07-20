@@ -30,6 +30,7 @@ const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
     color === "primary" && styles.colorPrimary,
     fontSize === "subheading" && style.fontSizeSubheading,
     fontWeight === "bold" && styles.fontWeightBold,
+
     style,
   ];
   return <NativeText style={textStyle} {...props} />;

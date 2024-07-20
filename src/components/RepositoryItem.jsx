@@ -12,53 +12,69 @@ const RepositoryItem = ({
   rating,
   image,
 }) => {
+  const styles = {
+    container: {
+      padding: 10,
+    },
+    button: {
+      backgroundColor: theme.colors.primary,
+      padding: 5,
+      borderRadius: 5,
+      width: 100,
+    },
+    buttonText: {
+      textAlign: "center",
+      color: theme.colors.secondary,
+    },
+    flexRow: {
+      display: "flex",
+      flexDirection: "row",
+    },
+    rowGap: { gap: 20, marginBottom: 20 },
+    bottomRow: {
+      flex: 1,
+      alignItems: "center",
+    },
+    image: {
+      width: 50,
+      height: 50,
+      borderRadius: 5,
+    },
+    content: {
+      display: "flex",
+      gap: 10,
+      width: 250,
+    },
+  };
+
   return (
-    <View style={{ padding: 10 }}>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: 20,
-          marginBottom: 20,
-        }}
-      >
-        <Image
-          style={{ width: 50, height: 50, borderRadius: 5 }}
-          source={{ uri: image }}
-        />
-        <View style={{ display: "flex", gap: 5, width: 250 }}>
+    <View style={styles.container}>
+      <View style={[styles.flexRow, styles.rowGap]}>
+        <Image style={styles.image} source={{ uri: image }} />
+        <View style={styles.content}>
           <Text fontWeight="bold">{fullName}</Text>
-          <Text style={{ color: "grey" }}>{description}</Text>
-          <Text
-            style={{
-              backgroundColor: theme.colors.primary,
-              color: theme.colors.secondary,
-              padding: 5,
-              width: 100,
-              textAlign: "center",
-              borderRadius: 5,
-            }}
-          >
-            {language}
-          </Text>
+          <Text color="textSecondary">{description}</Text>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>{language}</Text>
+          </View>
         </View>
       </View>
-      <View style={{ display: "flex", flexDirection: "row" }}>
-        <View style={{ flex: 1, alignItems: "center" }}>
+      <View style={styles.flexRow}>
+        <View style={styles.bottomRow}>
           <Text fontWeight="bold">{numberFormatter(stars)}</Text>
-          <Text style={{ color: "grey" }}>Stars</Text>
+          <Text color="textSecondary">Stars</Text>
         </View>
-        <View style={{ flex: 1, alignItems: "center" }}>
+        <View style={styles.bottomRow}>
           <Text fontWeight="bold">{numberFormatter(forks)}</Text>
-          <Text style={{ color: "grey" }}>Forks</Text>
+          <Text color="textSecondary">Forks</Text>
         </View>
-        <View style={{ flex: 1, alignItems: "center" }}>
+        <View style={styles.bottomRow}>
           <Text fontWeight="bold">{numberFormatter(reviews)}</Text>
-          <Text style={{ color: "grey" }}>Reviews</Text>
+          <Text color="textSecondary">Reviews</Text>
         </View>
-        <View style={{ flex: 1, alignItems: "center" }}>
+        <View style={styles.bottomRow}>
           <Text fontWeight="bold">{numberFormatter(rating)}</Text>
-          <Text style={{ color: "grey" }}>Rating</Text>
+          <Text color="textSecondary">Rating</Text>
         </View>
       </View>
     </View>
