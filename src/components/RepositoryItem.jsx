@@ -48,7 +48,7 @@ const RepositoryItem = ({
   };
 
   return (
-    <View style={styles.container}>
+    <View testID="repositoryItem" style={styles.container}>
       <View style={[styles.flexRow, styles.rowGap]}>
         <Image style={styles.image} source={{ uri: image }} />
         <View style={styles.content}>
