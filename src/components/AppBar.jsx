@@ -28,14 +28,14 @@ const AppBar = () => {
       <ScrollView horizontal>
         <AppBarTab text="Repositories" link="/" />
 
-        {!user.me && <AppBarTab text="Sign-in" link="/signin" />}
-        {user.me && <SignOut />}
-        {user.me && (
+        {!user?.me && <AppBarTab text="Sign-in" link="/signin" />}
+        {user?.me && <SignOut />}
+        {user?.me && (
           <Text
             fontWeight="bold"
             style={{ paddingTop: 10, color: theme.colors.secondary }}
           >
-            {user.me.username} logged in
+            {user?.me.username} logged in
           </Text>
         )}
       </ScrollView>

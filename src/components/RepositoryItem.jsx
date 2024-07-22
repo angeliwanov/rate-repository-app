@@ -2,6 +2,7 @@ import { Image, View } from "react-native";
 import theme from "../theme";
 import { numberFormatter } from "../utils";
 import Text from "./Text";
+
 const RepositoryItem = ({
   fullName,
   description,
@@ -16,13 +17,13 @@ const RepositoryItem = ({
     container: {
       padding: 10,
     },
-    button: {
+    languageChip: {
       backgroundColor: theme.colors.primary,
       padding: 5,
       borderRadius: 5,
       width: 100,
     },
-    buttonText: {
+    languageText: {
       textAlign: "center",
       color: theme.colors.secondary,
     },
@@ -45,6 +46,16 @@ const RepositoryItem = ({
       gap: 10,
       width: 250,
     },
+    button: {
+      backgroundColor: theme.colors.primary,
+      padding: 10,
+      margin: 5,
+      borderRadius: 5,
+    },
+    buttonText: {
+      color: theme.colors.secondary,
+      textAlign: "center",
+    },
   };
 
   return (
@@ -54,8 +65,8 @@ const RepositoryItem = ({
         <View style={styles.content}>
           <Text fontWeight="bold">{fullName}</Text>
           <Text color="textSecondary">{description}</Text>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>{language}</Text>
+          <View style={styles.languageChip}>
+            <Text style={styles.languageText}>{language}</Text>
           </View>
         </View>
       </View>

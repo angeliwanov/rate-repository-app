@@ -16,7 +16,6 @@ const SignOut = () => {
   const apolloClient = useApolloClient();
 
   const signOut = async () => {
-    console.log("sign out");
     await authStorage.removeAccessToken();
     apolloClient.resetStore();
   };
