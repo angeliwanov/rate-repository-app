@@ -13,6 +13,7 @@ const SingleRepository = () => {
     GET_REPO_REVIEWS,
     {
       variables: { repositoryId: id },
+      fetchPolicy: "network-only",
     }
   );
 
@@ -24,7 +25,7 @@ const SingleRepository = () => {
   if (loadingReviews || loadingRepository) return null;
 
   const reviewNodes = reviews
-    ? reviews?.repository?.reviews?.edges.map((edge) => edge.node)
+    ? reviews?.repository?.reviews?.edges?.map((edge) => edge.node)
     : [];
 
   return (
