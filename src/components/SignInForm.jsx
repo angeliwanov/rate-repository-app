@@ -12,11 +12,11 @@ const initialValues = {
 const validationSchema = yup.object().shape({
   username: yup
     .string()
-    .min(5, "Username must contain 5 or more characters.")
+    .min(3, "Username must contain 3 or more characters.")
     .required("Username is required"),
   password: yup
     .string()
-    .min(5, "Password much contain at least 8 characters.")
+    .min(3, "Password much contain at least 3 characters.")
     .required("Password is required"),
 });
 

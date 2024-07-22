@@ -22,7 +22,7 @@ const ReviewItem = ({ review }) => {
       borderWidth: "2px",
       borderStyle: "solid",
       paddingVertical: 9,
-      paddingHorizontal: review.rating < 100 ? 9 : 5,
+      paddingHorizontal: review.rating < 10 ? 14 : review.rating < 100 ? 9 : 5,
       borderRadius: 20,
     },
   };

@@ -24,14 +24,13 @@ const SingleRepository = () => {
   if (loadingReviews || loadingRepository) return null;
 
   const reviewNodes = reviews
-    ? reviews.repository.reviews.edges.map((edge) => edge.node)
+    ? reviews?.repository?.reviews?.edges.map((edge) => edge.node)
     : [];
 
   return (
     <FlatList
       data={reviewNodes}
       renderItem={({ item }) => {
-        console.log(item);
         return <ReviewItem review={item} />;
       }}
       keyExtractor={({ id }) => id}
