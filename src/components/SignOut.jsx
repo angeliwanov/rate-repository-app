@@ -23,7 +23,7 @@ const SignOut = () => {
   return (
     <Pressable onPress={signOut}>
       <Text fontWeight="bold" style={styles.text}>
-        Sign-out
+        Sign out
       </Text>
     </Pressable>
   );

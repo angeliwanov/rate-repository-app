@@ -27,18 +27,11 @@ const AppBar = () => {
     <View style={styles.container}>
       <ScrollView horizontal>
         <AppBarTab text="Repositories" link="/" />
-        <AppBarTab text="Create a review" link="/createrepo" />
+        {user?.me && <AppBarTab text="Create a review" link="/createrepo" />}
 
-        {!user?.me && <AppBarTab text="Sign-in" link="/signin" />}
+        {!user?.me && <AppBarTab text="Sign in" link="/signin" />}
+        {!user?.me && <AppBarTab text="Sign up" link="/signup" />}
         {user?.me && <SignOut />}
-        {user?.me && (
-          <Text
-            fontWeight="bold"
-            style={{ paddingTop: 10, color: theme.colors.secondary }}
-          >
-            {user?.me.username} logged in
-          </Text>
-        )}
       </ScrollView>
     </View>
   );

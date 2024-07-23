@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { useState } from "react";
 import { GET_REPOSITORIES } from "../graphql/queries";
 import RepositoryListContainer from "./RepositoryListContainer";
 
@@ -51,13 +52,30 @@ import RepositoryListContainer from "./RepositoryListContainer";
 
 const RepositoryList = () => {
   // const { repositories, loading } = useRepositories();
+  const [selector, setSelector] = useState("latest added");
+
+  const orderBy = selector === "latest added" ? "CREATED_AT" : "RATING_AVERAGE";
+  const orderDirection =
+    selector === "highest rated"
+      ? "DESC"
+      : selector === "lowest rated"
+      ? "ASC"
+      : "DESC";
+
   const { data, error, loading } = useQuery(GET_REPOSITORIES, {
+    variables: { orderBy, orderDirection },
     fetchPolicy: "cache-and-network",
   });
 
   if (loading || error) return null;
 
-  return <RepositoryListContainer repositories={data.repositories} />;
+  return (
+    <RepositoryListContainer
+      selector={selector}
+      setSelector={setSelector}
+      repositories={data.repositories}
+    />
+  );
 };
 
 export default RepositoryList;

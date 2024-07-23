@@ -2,8 +2,9 @@ import { FlatList, Pressable } from "react-native";
 import { useNavigate } from "react-router-dom";
 import ItemSeparator from "./ItemSeparator";
 import RepositoryItem from "./RepositoryItem";
+import Selector from "./Selector";
 
-const RepositoryListContainer = ({ repositories }) => {
+const RepositoryListContainer = ({ repositories, selector, setSelector }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
     : [];
@@ -32,6 +33,9 @@ const RepositoryListContainer = ({ repositories }) => {
         </Pressable>
       )}
       keyExtractor={(item) => item.id}
+      ListHeaderComponent={() => (
+        <Selector selector={selector} setSelector={setSelector} />
+      )}
     />
   );
 };
