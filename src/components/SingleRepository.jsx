@@ -33,7 +33,9 @@ const SingleRepository = () => {
     <FlatList
       data={reviewNodes}
       renderItem={({ item }) => {
-        return <ReviewItem review={item} />;
+        return (
+          <ReviewItem review={item} name={item.user.username} repo={false} />
+        );
       }}
       keyExtractor={({ id }) => id}
       ItemSeparatorComponent={<ItemSeparator />}

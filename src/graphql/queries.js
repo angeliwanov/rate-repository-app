@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { REPO_DETAILS } from "./fragments";
+import { REPO_DETAILS, REVEIW_DETAILS } from "./fragments";
 
 export const GET_REPOSITORIES = gql`
   query (
@@ -23,12 +23,20 @@ export const GET_REPOSITORIES = gql`
 `;
 
 export const GET_USER = gql`
-  query {
+  query getCurrentUser($includeReviews: Boolean = true) {
     me {
       id
       username
+      reviews @include(if: $includeReviews) {
+        edges {
+          node {
+            ...ReviewDetails
+          }
+        }
+      }
     }
   }
+  ${REVEIW_DETAILS}
 `;
 
 export const GET_GITHUB_URL = gql`
@@ -49,17 +57,11 @@ export const GET_REPO_REVIEWS = gql`
       reviews {
         edges {
           node {
-            id
-            text
-            rating
-            createdAt
-            user {
-              id
-              username
-            }
+            ...ReviewDetails
           }
         }
       }
     }
   }
+  ${REVEIW_DETAILS}
 `;

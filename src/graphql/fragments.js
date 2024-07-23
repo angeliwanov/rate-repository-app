@@ -13,3 +13,21 @@ export const REPO_DETAILS = gql`
     ownerAvatarUrl
   }
 `;
+
+export const REVEIW_DETAILS = gql`
+  fragment ReviewDetails on Review {
+    id
+    text
+    rating
+    createdAt
+    user {
+      id
+      username
+    }
+    repositoryId
+    repository {
+      ...RepoDetails
+    }
+  }
+  ${REPO_DETAILS}
+`;
