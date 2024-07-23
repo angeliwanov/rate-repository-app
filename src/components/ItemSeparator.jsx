@@ -5,7 +5,7 @@ const ItemSeparator = () => {
   const styles = StyleSheet.create({
     separator: {
       height: 10,
-      backgroundColor: theme.backgroundColors.bar,
+      backgroundColor: theme.backgroundColors.secondary,
     },
   });
 

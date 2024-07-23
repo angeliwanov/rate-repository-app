@@ -3,6 +3,7 @@ import { FlatList, View } from "react-native";
 import { useParams } from "react-router-dom";
 import { GET_GITHUB_URL, GET_REPO_REVIEWS } from "../graphql/queries";
 import ItemSeparator from "./ItemSeparator";
+import Loader from "./Loader";
 import RepositoryInfo from "./RepositoryInfo";
 import ReviewItem from "./ReviewItem";
 
@@ -22,7 +23,7 @@ const SingleRepository = () => {
     { variables: { repositoryId: id } }
   );
 
-  if (loadingReviews || loadingRepository) return null;
+  if (loadingReviews || loadingRepository) return <Loader />;
 
   const reviewNodes = reviews
     ? reviews?.repository?.reviews?.edges?.map((edge) => edge.node)

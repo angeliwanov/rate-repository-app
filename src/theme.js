@@ -9,7 +9,8 @@ const theme = {
     error: "#d73a4a",
   },
   backgroundColors: {
-    bar: "#25292c",
+    primary: "#25292c",
+    secondary: "rgba(0, 0, 0, 0.5)",
   },
   fontSizes: {
     body: 14,

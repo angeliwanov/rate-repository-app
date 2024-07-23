@@ -1,6 +1,12 @@
 import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { Alert, Modal, Pressable, StyleSheet, View } from "react-native";
+import {
+  Modal,
+  Pressable,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import theme from "../theme";
 import Text from "./Text";
 
@@ -13,7 +19,7 @@ const Selector = ({ selector, setSelector }) => {
       justifyContent: "center",
       alignItems: "center",
       padding: 5,
-      backgroundColor: "rgba(0,0,0,0.5)",
+      backgroundColor: theme.backgroundColors.secondary,
     },
     flex: {
       display: "flex",
@@ -43,8 +49,17 @@ const Selector = ({ selector, setSelector }) => {
       marginBottom: 15,
       textAlign: "center",
     },
-    textGray: {
+    placeholder: {
       color: theme.colors.textSecondary,
+    },
+    latest: {
+      fontWeight: selector === "latest added" ? "700" : "500",
+    },
+    highest: {
+      fontWeight: selector === "highest rated" ? "700" : "500",
+    },
+    lowest: {
+      fontWeight: selector === "lowest rated" ? "700" : "500",
     },
     arrow: { marginTop: 2 },
   });
@@ -52,17 +67,22 @@ const Selector = ({ selector, setSelector }) => {
   return (
     <View style={styles.centeredView}>
       <Modal
-        animationType="slide"
+        animationType="none"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.centeredView}>
+        <TouchableOpacity
+          style={[styles.centeredView]}
+          activeOpacity={1}
+          onPressOut={() => {
+            setModalVisible(false);
+          }}
+        >
           <View style={styles.modalView}>
-            <Text style={[styles.modalText, styles.textGray]}>
+            <Text style={[styles.modalText, styles.placeholder]}>
               Select an item ...
             </Text>
             <Pressable
@@ -70,24 +90,30 @@ const Selector = ({ selector, setSelector }) => {
                 setSelector("latest added");
               }}
             >
-              <Text style={styles.modalText}>Latest repositories</Text>
+              <Text style={[styles.modalText, styles.latest]}>
+                Latest repositories
+              </Text>
             </Pressable>
             <Pressable
               onPress={() => {
                 setSelector("highest rated");
               }}
             >
-              <Text style={styles.modalText}>Highest rated repositories</Text>
+              <Text style={[styles.modalText, styles.highest]}>
+                Highest rated repositories
+              </Text>
             </Pressable>
             <Pressable
               onPress={() => {
                 setSelector("lowest rated");
               }}
             >
-              <Text style={styles.modalText}>Lowest rated repositories</Text>
+              <Text style={[styles.modalText, styles.lowest]}>
+                Lowest rated repositories
+              </Text>
             </Pressable>
           </View>
-        </View>
+        </TouchableOpacity>
       </Modal>
       <Pressable
         style={[styles.button, styles.flex]}

@@ -1,10 +1,17 @@
-import { FlatList, Pressable } from "react-native";
+import { FlatList, Pressable, View } from "react-native";
 import { useNavigate } from "react-router-dom";
 import ItemSeparator from "./ItemSeparator";
 import RepositoryItem from "./RepositoryItem";
+import SearchBar from "./SearchBar";
 import Selector from "./Selector";
 
-const RepositoryListContainer = ({ repositories, selector, setSelector }) => {
+const RepositoryListContainer = ({
+  repositories,
+  selector,
+  setSelector,
+  searchQuery,
+  setSearchQuery,
+}) => {
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
     : [];
@@ -34,7 +41,13 @@ const RepositoryListContainer = ({ repositories, selector, setSelector }) => {
       )}
       keyExtractor={(item) => item.id}
       ListHeaderComponent={() => (
-        <Selector selector={selector} setSelector={setSelector} />
+        <View>
+          <SearchBar
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+          />
+          <Selector selector={selector} setSelector={setSelector} />
+        </View>
       )}
     />
   );

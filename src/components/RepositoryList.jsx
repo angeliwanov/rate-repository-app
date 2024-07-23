@@ -1,8 +1,9 @@
 import { useQuery } from "@apollo/client";
 import { useState } from "react";
+import { useDebounce } from "use-debounce";
 import { GET_REPOSITORIES } from "../graphql/queries";
+import Loader from "./Loader";
 import RepositoryListContainer from "./RepositoryListContainer";
-
 // const repositories = [
 //   {
 //     id: "jaredpalmer.formik",
@@ -53,6 +54,8 @@ import RepositoryListContainer from "./RepositoryListContainer";
 const RepositoryList = () => {
   // const { repositories, loading } = useRepositories();
   const [selector, setSelector] = useState("latest added");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [repositoriesSearchKeyword2] = useDebounce(searchQuery, 500);
 
   const orderBy = selector === "latest added" ? "CREATED_AT" : "RATING_AVERAGE";
   const orderDirection =
@@ -62,17 +65,23 @@ const RepositoryList = () => {
       ? "ASC"
       : "DESC";
 
-  const { data, error, loading } = useQuery(GET_REPOSITORIES, {
-    variables: { orderBy, orderDirection },
+  const { data, loading } = useQuery(GET_REPOSITORIES, {
+    variables: {
+      orderBy,
+      orderDirection,
+      repositoriesSearchKeyword2,
+    },
     fetchPolicy: "cache-and-network",
   });
 
-  if (loading || error) return null;
+  if (loading) return <Loader />;
 
   return (
     <RepositoryListContainer
       selector={selector}
       setSelector={setSelector}
+      searchQuery={searchQuery}
+      setSearchQuery={setSearchQuery}
       repositories={data.repositories}
     />
   );
