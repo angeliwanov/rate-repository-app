@@ -16,16 +16,14 @@ const ReviewItem = ({ review, name, repo, refetch }) => {
     },
     flex: { display: "flex", gap: 5 },
     rating: {
-      alignSelf: "center",
+      textAlign: "center",
       width: 40,
       height: 40,
-
       color: "#205ea0",
       borderColor: "#205ea0",
       borderWidth: "2px",
       borderStyle: "solid",
       paddingVertical: 9,
-      paddingHorizontal: review.rating < 10 ? 14 : review.rating < 100 ? 9 : 5,
       borderRadius: 20,
     },
     buttonContainer: {
