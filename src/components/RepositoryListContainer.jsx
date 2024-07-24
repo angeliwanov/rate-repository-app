@@ -48,6 +48,7 @@ export class RepositoryListContainer extends React.Component {
             />
           </Pressable>
         )}
+        onEndReached={this.props.onEndReach}
         keyExtractor={(item) => item.id}
         ListHeaderComponent={this.renderHeader}
       />

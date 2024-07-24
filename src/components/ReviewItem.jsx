@@ -1,4 +1,4 @@
-import { Pressable, View } from "react-native";
+import { Alert, Pressable, View } from "react-native";
 import { useNavigate } from "react-router-native";
 import useDeleteReview from "../hooks/useDeleteReview";
 import theme from "../theme";
@@ -55,14 +55,30 @@ const ReviewItem = ({ review, name, repo, refetch }) => {
   const navigate = useNavigate();
   const [deleteReview] = useDeleteReview();
 
-  const onDelete = async () => {
-    try {
-      await deleteReview(review.id);
-      refetch();
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const confirmDelete = () =>
+    Alert.alert(
+      "Delete review",
+      "Are you sure you want to delete this review?",
+      [
+        {
+          text: "CANCEL",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "DELETE",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await deleteReview(review.id);
+              refetch();
+            } catch (e) {
+              console.log(e);
+            }
+          },
+        },
+      ]
+    );
 
   return (
     <View>
@@ -92,7 +108,7 @@ const ReviewItem = ({ review, name, repo, refetch }) => {
           </Pressable>
           <Pressable
             style={[styles.button, styles.buttonDelete]}
-            onPress={onDelete}
+            onPress={confirmDelete}
           >
             <Text fontWeight="bold" style={styles.buttonText}>
               Delete review

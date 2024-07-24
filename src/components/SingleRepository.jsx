@@ -1,7 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { FlatList, View } from "react-native";
 import { useParams } from "react-router-dom";
-import { GET_GITHUB_URL, GET_REPO_REVIEWS } from "../graphql/queries";
+import { GET_GITHUB_URL } from "../graphql/queries";
+import useReviews from "../hooks/useReviews";
 import ItemSeparator from "./ItemSeparator";
 import Loader from "./Loader";
 import RepositoryInfo from "./RepositoryInfo";
@@ -10,13 +11,18 @@ import ReviewItem from "./ReviewItem";
 const SingleRepository = () => {
   const { id } = useParams();
 
-  const { data: reviews, loading: loadingReviews } = useQuery(
-    GET_REPO_REVIEWS,
-    {
-      variables: { repositoryId: id },
-      fetchPolicy: "network-only",
-    }
-  );
+  const {
+    reviews,
+    fetchMore,
+    loading: loadingReviews,
+  } = useReviews({
+    first: 2,
+    repositoryId: id,
+  });
+
+  const onEndReach = () => {
+    fetchMore();
+  };
 
   const { data: repository, loading: loadingRepository } = useQuery(
     GET_GITHUB_URL,
@@ -25,9 +31,7 @@ const SingleRepository = () => {
 
   if (loadingReviews || loadingRepository) return <Loader />;
 
-  const reviewNodes = reviews
-    ? reviews?.repository?.reviews?.edges?.map((edge) => edge.node)
-    : [];
+  const reviewNodes = reviews ? reviews?.edges?.map((edge) => edge.node) : [];
 
   return (
     <FlatList
@@ -39,6 +43,7 @@ const SingleRepository = () => {
       }}
       keyExtractor={({ id }) => id}
       ItemSeparatorComponent={<ItemSeparator />}
+      onEndReached={onEndReach}
       ListHeaderComponent={() => (
         <View>
           <RepositoryInfo repository={repository.repository} />

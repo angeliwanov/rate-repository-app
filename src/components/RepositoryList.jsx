@@ -1,8 +1,7 @@
-import { useQuery } from "@apollo/client";
 import { useState } from "react";
 import { useNavigate } from "react-router-native";
 import { useDebounce } from "use-debounce";
-import { GET_REPOSITORIES } from "../graphql/queries";
+import useRepositories from "../hooks/useRepositories";
 import Loader from "./Loader";
 import RepositoryListContainer from "./RepositoryListContainer";
 
@@ -20,14 +19,16 @@ const RepositoryList = () => {
       ? "ASC"
       : "DESC";
 
-  const { data, loading } = useQuery(GET_REPOSITORIES, {
-    variables: {
-      orderBy,
-      orderDirection,
-      repositoriesSearchKeyword2,
-    },
-    fetchPolicy: "cache-and-network",
+  const { repositories, fetchMore, loading } = useRepositories({
+    first: 3,
+    orderBy,
+    orderDirection,
+    repositoriesSearchKeyword2,
   });
+
+  const onEndReach = () => {
+    fetchMore();
+  };
 
   if (loading) return <Loader />;
 
@@ -38,7 +39,8 @@ const RepositoryList = () => {
       setSelector={setSelector}
       searchQuery={searchQuery}
       setSearchQuery={setSearchQuery}
-      repositories={data.repositories}
+      repositories={repositories}
+      onEndReach={onEndReach}
     />
   );
 };
